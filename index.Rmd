@@ -13,19 +13,11 @@ knit        : slidify::knit2slides
 
 ## Introduction to "BudgetFood Calculator"
 
-Agenda
-- What the Application Does
-- How the Application Works
-- Challenges Faced During Creation
-
---- .class #id
-
-## What the Application Does
-
+Functionality Included
 - Using the 'BudgetFood' dataset from the 'Ecdat' package
 - Build a linear model to predict "wfood" (percentage of expenses spent on food)
 - Allow application user to input their own values
-- Allow user to "predict" their own "wfood" percentage
+- "Predict" users own "wfood" percentage
 
 --- .class #id
 
@@ -40,28 +32,10 @@ data(BudgetFood)
 ```{r}
 model <- lm(wfood ~ totexp + age + size + town + sex, data = BudgetFood)
 ```
-
-The model demonstrated good fit:
-
---- .class #id
-
+The model demonstrated good fit (even though this page did not...):
 ```{r}
 summary(model)
 ```
-
---- .class #id
-
-## User Data Selection and Interaction
-
-- As part of the application, several UI widgets were provided allowing the user
-to input a set of values for the same variables built into the model. These controls
-are displayed down the left column of the page.
-- Changes to the widgets selected new values, which are displayed immediately to
-the user in the main panel of the page.
-- Under the row where the values are displayed is a button. This button is used
-to run the 'predict' command, returning the predicted percentage of food spend
-as a percentage.
-- All the UI elements were defined in the ui.R file.
 
 --- .class #id
 
@@ -71,42 +45,16 @@ as a percentage.
 the 'predict' function were performed within the server.R file.
 - The 'predict' command was initiated by the action button defined on the UI.
 - The associated code looked like this:
-
 ```{r, eval=FALSE}
 output$Xprediction <- renderPrint({
     input$predict
     isolate(percent(predict(model, newdata = data.frame(totexp = input$IscaledExp*200,
-                                         age = input$Iage,
-                                         size = input$Isize, 
-                                         town = input$Itown, 
-                                         sex = input$Igender,
+                                         age = input$Iage, size = input$Isize, 
+                                         town = input$Itown, sex = input$Igender,
                                          stringsAsFactors = TRUE))))
     })
 ```
-
---- .class #id
-
-## Challenges and 'Solutions'
-
-Making the currency relevant to our cultural environment
-- The range of 'totexp' (total household expenses) was huge (~14,000 - ~11,000,000)
-- The 'solution' was to scope the UI widget to a semi-reasonable range (10-10,000)
-and the multiply the response by 200 before predicting the value.
-- This 'hack' allowed the model to produce consistent values in a currency users
-of the application could understand. The data was collected in Spain in 1980, so
-the relative currency at the time was dramatically different.
-
---- .class #id 
-
-## Challenge Part 2
-
-Negative Predicted Values
-- A direct scaling of the 'totexp' field proved tricky, resulting in predictions
-of a negative percentage of expenses. The data ended up not being perfectly linear.
-This can be seen to some extent in the plot on the following slide.
-- The 'hack' described on the previous slide help normalize the currency values.
-- The multiplier set to '200' helped mask the potential negative values from the
-application.
+Note: The overall relationship between food cost and total expenses can be seen as follows...
 
 --- .class #id
 
@@ -114,17 +62,3 @@ application.
 plot(BudgetFood$wfood, BudgetFood$totexp,
      xlab = "% Expenses Spent on Food", ylab = "Total Household Expenses")
 ```
-
---- .class #id
-
-## Conclusion
-
-Thank you for viewing my presentation
-- This presentation:
-    - Described my Project
-    - Explained how it worked
-    - Discussed a couple challenges and how they were dealt with
-
-
-
-
