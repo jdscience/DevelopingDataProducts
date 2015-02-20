@@ -3,9 +3,9 @@ title       : Simple BudgetFood Calculator
 subtitle    : Predicting the percentage of household expenses used for food.
 author      : JDScience
 job         : Developing Data Products (February 2015)
-framework   : Slidy        # {io2012, html5slides, shower, dzslides, ...}
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
-hitheme     : tomorrow       # tomorrow
+hitheme     : tomorrow      # tomorrow
 widgets     : []            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 knit        : slidify::knit2slides
